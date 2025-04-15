@@ -14,14 +14,17 @@ The database is designed to have 2 databases - One of Trips and other for Activi
 
 
 # How to run the code
-1. Create Tables in your database using the below SQL Queries (provided after step 9).
+1. Create Tables in your database using the below SQL Queries (provided after step 10).
 2. Clone the code in your local system.
 3. Open the "TravelExperienceCoreAPI.sln" file using Visual Studio/Visual Studio Code .
 4. In the appsettings.json file, enter the connection string to your database under "TravelConnection".
 5. In the TravelExperienceCOreAPI.http file, check the host address and change it if needed.
 6. Build the application.
-7. You may access the Web API URL using swagger URL on the web browser : "http://localhost:5173/swagger/" or using API URL "http://localhost:5173/api/trips" via Postman.
-8. You can use the below test input data to test the POST API.
+7. Run the solution
+8. You may access the Web API URL using below methods : 
+a. Swagger URL using on the web browser : "http://localhost:5173/swagger/" (Note: app should run on 'http')
+b. Using API URL "http://localhost:5173/api/trips" via Postman.
+9. You can use the below test input data to test the POST API.
 
 {
   "title": "Summer Vacation",
@@ -42,7 +45,7 @@ The database is designed to have 2 databases - One of Trips and other for Activi
   ]
 }
 
-9. You may use the below invalid input to test the error validation
+10. You may use the below invalid input to test the error validation
 
 {
   "title": "",
