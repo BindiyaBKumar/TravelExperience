@@ -3,6 +3,8 @@ using TravelExperienceCoreAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using TravelExperienceCoreAPI.Services;
 using TravelExperienceCoreAPI.Helpers;
+using TravelExperienceCoreAPI.Interfaces;
+using TravelExperienceCoreAPI.Repositories;
 ;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<TravelExperienceDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ITravelExperienceService, TravelExperienceService>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<ITripRepository, TripRepository>();
 builder.Services.AddScoped<ValidateUserInput>();
 
 builder.Services.AddEndpointsApiExplorer();

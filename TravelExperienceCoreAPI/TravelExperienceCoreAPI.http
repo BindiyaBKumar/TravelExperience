@@ -12,10 +12,14 @@ Content-Type: application/json
   "endDate": "2025-06-25",
   "activities": [
     {
-      "activityId": 1,
       "destinationId": "Brazil",
       "duration": 1,
       "cost": 100
+    },
+    {
+      "destinationId": "Egypt",
+      "duration": 1,
+      "cost": 200
     }
   ]
 }

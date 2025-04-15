@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using System.Transactions;
 using TravelExperienceCoreAPI.Data;
 using TravelExperienceCoreAPI.DTOs;
+using TravelExperienceCoreAPI.Interfaces;
 using TravelExperienceCoreAPI.Models;
 
 namespace TravelExperienceCoreAPI.Services
@@ -10,15 +12,19 @@ namespace TravelExperienceCoreAPI.Services
     public class TravelExperienceService : ITravelExperienceService
     {
         private TravelExperienceDbContext _dbContext;
-        public TravelExperienceService(TravelExperienceDbContext dbContext)
+        private IActivityRepository _activityRepository;
+        private ITripRepository _tripRepository;
+        public TravelExperienceService(TravelExperienceDbContext dbContext, IActivityRepository activityRepository, ITripRepository tripRepository)
         {
             _dbContext = dbContext;
+            _activityRepository = activityRepository;
+            _tripRepository = tripRepository;
+
         }       
 
 
         public async Task<ResponseDTO> AddNewExperience(RequestDTO userrequest)
         {
-            using var transaction = await _dbContext.Database.BeginTransactionAsync();
             try
             {
                 //Create new trip            
@@ -32,8 +38,7 @@ namespace TravelExperienceCoreAPI.Services
                 };
 
                 //Insert new trip
-                _dbContext.Trips.Add(trip);
-                await _dbContext.SaveChangesAsync();
+                var newTrip = await _tripRepository.AddTrip(trip);
 
                 //Create new activities
                 var activities = userrequest.Activities.Select(a=>new Activity
@@ -41,15 +46,12 @@ namespace TravelExperienceCoreAPI.Services
                     DestinationId=a.DestinationId,
                     Duration=a.Duration,
                     Cost=a.Cost,
-                    TripId=trip.TripId
+                    TripId=newTrip.TripId
                 }).ToList();
 
-                
 
                 //Insert new activities
-                _dbContext.Activities.AddRange(activities);
-                await _dbContext.SaveChangesAsync();
-                await transaction.CommitAsync();
+                var newactivities = await _activityRepository.AddActivityList(activities);
 
 
                 //Create new respone
@@ -61,7 +63,6 @@ namespace TravelExperienceCoreAPI.Services
             }
             catch (Exception ex)
             {
-                await transaction.RollbackAsync();
                 throw;
             }
 
