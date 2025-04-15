@@ -2,6 +2,7 @@ using System;
 using TravelExperienceCoreAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using TravelExperienceCoreAPI.Services;
+using TravelExperienceCoreAPI.Helpers;
 ;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<TravelExperienceDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ITravelExperienceService, TravelExperienceService>();
+builder.Services.AddScoped<ValidateUserInput>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -20,4 +20,22 @@ Content-Type: application/json
   ]
 }
 
+### Input to test Error Validation
+POST {{TravelExperienceCoreAPI_HostAddress}}/api/trips
+Content-Type: application/json
+
+{
+  "title": "",
+  "user": "",
+  "startDate": "2025-12-16",
+  "endDate": "2025-12-14",
+  "activities": [
+    {
+      "destinationId": "",
+      "duration": 0,
+      "cost": 0
+    }
+  ]
+}
+
 ###
