@@ -23,26 +23,33 @@ namespace TravelExperienceCoreAPI.Controllers
         [HttpPost("trips")]
         public async Task<IActionResult> AddNewExperience([FromBody] RequestDTO userrequest)
         {
-            if (userrequest == null)
+            try
             {
-                return BadRequest("The request is empty");
-            }
-            else if (!ModelState.IsValid)
-            {
-                return BadRequest("The request is invalid");
-            }
-            else
-            {
-                List<string> error = _validateUserInput.ValidateInput(userrequest);
-                if (error.Count != 0)
+                if (userrequest == null)
                 {
-                    return BadRequest(error);
+                    return BadRequest("The request is empty");
+                }
+                else if (!ModelState.IsValid)
+                {
+                    return BadRequest("The request is invalid");
                 }
                 else
                 {
-                    var result = await _travelExperienceService.AddNewExperience(userrequest);
-                    return Ok(result);
+                    List<string> error = _validateUserInput.ValidateInput(userrequest);
+                    if (error.Count != 0)
+                    {
+                        return BadRequest(error);
+                    }
+                    else
+                    {
+                        var result = await _travelExperienceService.AddNewExperience(userrequest);
+                        return Ok(result);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An unexpected error has occured.");
             }
         }
     }

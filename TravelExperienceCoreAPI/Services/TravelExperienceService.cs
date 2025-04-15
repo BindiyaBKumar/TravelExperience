@@ -13,10 +13,12 @@ namespace TravelExperienceCoreAPI.Services
     {
         private IActivityRepository _activityRepository;
         private ITripRepository _tripRepository;
-        public TravelExperienceService(IActivityRepository activityRepository, ITripRepository tripRepository)
+        private readonly ILogger<ITravelExperienceService> _logger;
+        public TravelExperienceService(IActivityRepository activityRepository, ITripRepository tripRepository, ILogger<ITravelExperienceService> logger)
         {
             _activityRepository = activityRepository;
             _tripRepository = tripRepository;
+            _logger = logger;
 
         }       
 
@@ -61,7 +63,8 @@ namespace TravelExperienceCoreAPI.Services
             }
             catch (Exception ex)
             {
-                throw;
+                _logger.LogError(ex, "An unexpected error occurred.");
+                throw ex;
             }
 
         }
