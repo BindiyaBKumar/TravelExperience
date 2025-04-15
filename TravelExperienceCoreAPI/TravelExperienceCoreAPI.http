@@ -1,6 +1,23 @@
 @TravelExperienceCoreAPI_HostAddress = http://localhost:5173
 
-GET {{TravelExperienceCoreAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+
+### Create a new travel experience
+POST {{TravelExperienceCoreAPI_HostAddress}}/api/trips
+Content-Type: application/json
+
+{
+  "title": "Summer Vacation",
+  "user": "TestUser",
+  "startDate": "2025-06-10",
+  "endDate": "2025-06-25",
+  "activities": [
+    {
+      "activityId": 1,
+      "destinationId": "Brazil",
+      "duration": 1,
+      "cost": 100
+    }
+  ]
+}
 
 ###
