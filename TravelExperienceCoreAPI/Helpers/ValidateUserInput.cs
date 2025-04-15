@@ -29,6 +29,9 @@ namespace TravelExperienceCoreAPI.Helpers
             if (input.EndDate == null || String.IsNullOrEmpty(input.EndDate.ToString()))
                 errors.Add("End date is required.");
 
+            if (input.Activities.Count == 0 || input.Activities == null)
+                errors.Add("Trip should contain atleast 1 activity.");
+
             if (input.Activities.Exists(x => String.IsNullOrEmpty(x.DestinationId)))
                 errors.Add("DestinationId is required in all activities");
 

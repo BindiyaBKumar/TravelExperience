@@ -11,12 +11,10 @@ namespace TravelExperienceCoreAPI.Services
 {
     public class TravelExperienceService : ITravelExperienceService
     {
-        private TravelExperienceDbContext _dbContext;
         private IActivityRepository _activityRepository;
         private ITripRepository _tripRepository;
-        public TravelExperienceService(TravelExperienceDbContext dbContext, IActivityRepository activityRepository, ITripRepository tripRepository)
+        public TravelExperienceService(IActivityRepository activityRepository, ITripRepository tripRepository)
         {
-            _dbContext = dbContext;
             _activityRepository = activityRepository;
             _tripRepository = tripRepository;
 
